@@ -1,14 +1,17 @@
 //
-//  GMacAppApp.swift
-//  GMacApp
+//  GAppApp.swift
+//  GApp
 //
 //  Created by Robert Talianu
 //
 
 import SwiftUI
+import Foundation
+
 
 @main
-struct GMacAppApp: App {
+struct GAppApp: App {
+    
     var body: some Scene {
         WindowGroup {
             AppRootView()
