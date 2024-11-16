@@ -41,33 +41,38 @@ class BTObject: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate {
     // Called when BT changes state
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         Globals.logToScreen("Central state update:" + String(central.state.rawValue))
-
+        
         mDataChangeListener?.onManagerDataChange(central)
-
-        //        switch central.state {
-        //        case CBManagerState.poweredOn:
-        //            // Notify user Bluetooth in ON
-        //            //startScan()
-        //            fallthrough
-        //        case CBManagerState.poweredOff:
-        //            // Alert user to turn on Bluetooth
-        //            fallthrough
-        //        case CBManagerState.resetting:
-        //            // Wait for next state update and consider logging interruption of Bluetooth service
-        //            fallthrough
-        //        case CBManagerState.unauthorized:
-        //            // Alert user to enable Bluetooth permission in app Settings
-        //            fallthrough
-        //        case CBManagerState.unsupported:
-        //            // Alert user their device does not support Bluetooth and app will not work as expected
-        //            fallthrough
-        //        case CBManagerState.unknown:
-        //            // Wait for next state update
-        //            fallthrough
-        //        default:
-        //            return
-        //            //Globals.logToScreen("Central state update:" + String(central.state.rawValue))
-        //        }
+        
+        switch central.state {
+        case CBManagerState.poweredOn:
+            // Notify user Bluetooth in ON
+            Globals.logToScreen("Central: Bluetooth is ON")
+            break
+        case CBManagerState.poweredOff:
+            // Alert user to turn on Bluetooth
+            Globals.logToScreen("Central: Bluetooth is OFF")
+            break
+        case CBManagerState.resetting:
+            // Wait for next state update and consider logging interruption of Bluetooth service
+            Globals.logToScreen("Central: Bluetooth is RESETTING")
+            break
+        case CBManagerState.unauthorized:
+            // Alert user to enable Bluetooth permission in app Settings
+            Globals.logToScreen("Central: Bluetooth is UNAUTHORIZED; Check for access permissions ( info.plist )")
+            break
+        case CBManagerState.unsupported:
+            // Alert user their device does not support Bluetooth and app will not work as expected
+            Globals.logToScreen("Central: Bluetooth is UNSUPPORTED; Check for access permissions ( info.plist )")
+            break
+        case CBManagerState.unknown:
+            // Wait for next state update
+            Globals.logToScreen("Central: Bluetooth is UNKNOWN; Check for access permissions ( info.plist )")
+            break
+        default:
+            Globals.logToScreen("Central: Bluetooth is ---")
+            break
+        }
     }
 
     // Start Scanning
@@ -118,11 +123,12 @@ class BTObject: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate {
 
     // Handles services discovery event
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
-        Globals.logToScreen("Peripheral services discovery completed. " + (error?.localizedDescription ?? "(no-error)"))
+        Globals.logToScreen("-ss- peripheral services:" + (error?.localizedDescription ?? "(no-error)"))
         if let services = peripheral.services {
             for service in services {
-                Globals.logToScreen("--s-- discovered service: \(service.uuid.uuidString) \(service.description)")
+                Globals.logToScreen("-s--- service found: \(service.uuid.uuidString) \(service.description)")
                 //Now start discovery of characteristics
+                Globals.logToScreen("Discovering service characteristics...")
                 peripheral.discoverCharacteristics(nil, for: service)
             }
         }
@@ -130,10 +136,10 @@ class BTObject: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate {
 
     // Handling discovery of characteristics
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
-        Globals.logToScreen("---- peripheral discovery characteristics...")
+        Globals.logToScreen("-cc- serivice characteristics:" + (error?.localizedDescription ?? "(no-error)"))
         if let characteristics = service.characteristics {
             for characteristic in characteristics {
-                Globals.logToScreen("---- @ Peripheral characteristic found: \(characteristic.uuid.uuidString) \(characteristic.description)")
+                Globals.logToScreen("---c- characteristic found: \(characteristic.uuid.uuidString) \(characteristic.description)")
             }
         }
     }

@@ -39,7 +39,7 @@ class Globals {
      */
     static func logToScreen(_ message: String) {
         Globals.sharedInstance.consoleN.append("\n#  \(message)")
-        Globals.sharedInstance.consoleN = String(Globals.sharedInstance.consoleN.suffix(2000))
+        Globals.sharedInstance.consoleN = String(Globals.sharedInstance.consoleN.suffix(20000))
     }
     
     /**

@@ -16,9 +16,22 @@
 		E8C0D63D2CE80D170098EE9D /* GMacApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GMacApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		E822C2382CE8E74E0047BD23 /* Exceptions for "GMacApp" folder in "GMacApp" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = E8C0D63C2CE80D170098EE9D /* GMacApp */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		E8C0D63F2CE80D170098EE9D /* GMacApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				E822C2382CE8E74E0047BD23 /* Exceptions for "GMacApp" folder in "GMacApp" target */,
+			);
 			path = GMacApp;
 			sourceTree = "<group>";
 		};
@@ -278,6 +291,9 @@
 				DEVELOPMENT_ASSET_PATHS = "\"GMacApp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GMacApp/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "App uses Bluetooth to connect to the other devices";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "App uses Bluetooth to connect to the other devices";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -303,6 +319,9 @@
 				DEVELOPMENT_ASSET_PATHS = "\"GMacApp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GMacApp/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "App uses Bluetooth to connect to the other devices";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "App uses Bluetooth to connect to the other devices";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
