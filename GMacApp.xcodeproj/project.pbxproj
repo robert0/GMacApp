@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		E8C0D89F2CE81AA90098EE9D /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = E8C0D89E2CE81AA90098EE9D /* Collections */; };
+		E8C0D8A12CE81AA90098EE9D /* HashTreeCollections in Frameworks */ = {isa = PBXBuildFile; productRef = E8C0D8A02CE81AA90098EE9D /* HashTreeCollections */; };
+		E8C0D8A32CE81AA90098EE9D /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = E8C0D8A22CE81AA90098EE9D /* OrderedCollections */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		E8C0D63D2CE80D170098EE9D /* GMacApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GMacApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +29,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8C0D8A12CE81AA90098EE9D /* HashTreeCollections in Frameworks */,
+				E8C0D89F2CE81AA90098EE9D /* Collections in Frameworks */,
+				E8C0D8A32CE81AA90098EE9D /* OrderedCollections in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -33,6 +42,7 @@
 			isa = PBXGroup;
 			children = (
 				E8C0D63F2CE80D170098EE9D /* GMacApp */,
+				E8C0D8142CE819FC0098EE9D /* Frameworks */,
 				E8C0D63E2CE80D170098EE9D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -43,6 +53,13 @@
 				E8C0D63D2CE80D170098EE9D /* GMacApp.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		E8C0D8142CE819FC0098EE9D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -65,6 +82,9 @@
 			);
 			name = GMacApp;
 			packageProductDependencies = (
+				E8C0D89E2CE81AA90098EE9D /* Collections */,
+				E8C0D8A02CE81AA90098EE9D /* HashTreeCollections */,
+				E8C0D8A22CE81AA90098EE9D /* OrderedCollections */,
 			);
 			productName = GMacApp;
 			productReference = E8C0D63D2CE80D170098EE9D /* GMacApp.app */;
@@ -94,6 +114,9 @@
 			);
 			mainGroup = E8C0D6342CE80D160098EE9D;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				E8C0D6F82CE811CE0098EE9D /* XCRemoteSwiftPackageReference "swift-collections" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E8C0D63E2CE80D170098EE9D /* Products */;
 			projectDirPath = "";
@@ -315,6 +338,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E8C0D6F82CE811CE0098EE9D /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E8C0D89E2CE81AA90098EE9D /* Collections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E8C0D6F82CE811CE0098EE9D /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = Collections;
+		};
+		E8C0D8A02CE81AA90098EE9D /* HashTreeCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E8C0D6F82CE811CE0098EE9D /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = HashTreeCollections;
+		};
+		E8C0D8A22CE81AA90098EE9D /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E8C0D6F82CE811CE0098EE9D /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E8C0D6352CE80D170098EE9D /* Project object */;
 }

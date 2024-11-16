@@ -18,28 +18,24 @@ struct AppRootView: View {
     }
     
     var body: some View {
-      
-        TabView{
+        
+        TabView {
             let av = AppTabView()
             av.tabItem {
                 Text("App")
             }.tag(1)
-
+            
             logView.tabItem {
                 Text("Logs")
             }.tag(2)
-           
-
+            
+            
             let btv = BTView()
             btv.tabItem {
                 Text("Bluetooth")
             }.tag(3)
         }
-
     }
-
-
-
 }
 
 #Preview {

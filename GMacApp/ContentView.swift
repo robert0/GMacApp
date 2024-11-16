@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  GMacApp
 //
-//  Created by Robert Talianu on 16.11.2024.
+//  Created by Robert Talianu
 //
 
 import SwiftUI

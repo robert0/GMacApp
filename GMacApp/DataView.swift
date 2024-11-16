@@ -130,9 +130,9 @@ struct DataView: View, DataChangeListener, GestureEvaluationListener {
             }
 
             Text("Gesture Detection Status:").offset(x: 0, y: -10)
-            ForEach(viewModel.gestureEvaluationStatusMap.elements, id: \.key) { element in
-                Text("\(element.key): \(element.value.getGestureCorrelationFactor())")
-            }
+//            ForEach(viewModel.gestureEvaluationStatusMap.elements, id: \.key) { element in
+//                Text("\(element.key): \(element.value.getGestureCorrelationFactor())")
+//            }
         }
     }
 
@@ -178,7 +178,7 @@ struct DataView: View, DataChangeListener, GestureEvaluationListener {
      */
     public func gestureEvaluationCompleted(_ gw: GestureWindow, _ status: GestureEvaluationStatus) {
         Globals.logToScreen("DataView gestureEvaluationCompleted...")
-        self.viewModel.gestureEvaluationStatusMap[status.getGestureKey()] = status
+        //self.viewModel.gestureEvaluationStatusMap[status.getGestureKey()] = status
         //trigger repaint
         onDataChange()
     }
@@ -193,5 +193,5 @@ struct DataView: View, DataChangeListener, GestureEvaluationListener {
 final class DataViewModel: ObservableObject {
     @Published var dataProvider: RealtimeMultiGestureAnalyser?
     @Published var updateCounter: Int = 1
-    @Published var gestureEvaluationStatusMap = OrderedDictionary<String, GestureEvaluationStatus>()
+    //@Published var gestureEvaluationStatusMap = OrderedDictionary<String, GestureEvaluationStatus>()
 }
