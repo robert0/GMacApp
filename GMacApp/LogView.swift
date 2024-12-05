@@ -17,7 +17,9 @@ struct LogView: View {
             VStack(alignment: HorizontalAlignment.leading) {
                 Text("--- Logging (Trimmed) ---")
                 Spacer()
-                Text(viewModel.text).lineLimit(nil)
+                Text(viewModel.text)
+                    .lineLimit(nil)
+                    .textSelection(.enabled)
             }
         }.frame(maxWidth: 600)
             .border(Color.red)

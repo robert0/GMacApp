@@ -20,8 +20,10 @@ public protocol BTChangeListener {
      */
     func onPeripheralChange(_ central: CBCentralManager, _ peripheral: CBPeripheral);
     
+    
     /**
      * @return
      */
-    func onPeripheralDataChange();
+    func onPeripheralDataChange(_ central: CBCentralManager, _ peripheral: CBPeripheral, _ data: Data?);
+
 }

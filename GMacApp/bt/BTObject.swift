@@ -17,7 +17,8 @@ class BTObject: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate {
     
     private var peripheralsMap = OrderedDictionary<String, CBPeripheral>()
     private var mDataChangeListener: BTChangeListener?
-
+    private var dataUpdateListener: BTDataChangeListener?
+    
     override init() {
         super.init()
         Globals.logToScreen("Starting CBCentralManager...")
@@ -136,10 +137,11 @@ class BTObject: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate {
 
     // Handling discovery of characteristics
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
-        Globals.logToScreen("-cc- serivice characteristics:" + (error?.localizedDescription ?? "(no-error)"))
+        Globals.logToScreen("-cc- service characteristics:" + (error?.localizedDescription ?? "(no-error)"))
         if let characteristics = service.characteristics {
             for characteristic in characteristics {
-                Globals.logToScreen("---c- characteristic found: \(characteristic.uuid.uuidString) \(characteristic.description)")
+                Globals.logToScreen("---c- characteristic found: \(characteristic.uuid.uuidString) \(characteristic.description)  ---> of service: \(characteristic.service?.uuid.uuidString), notified service: \(service.uuid.uuidString)")
+                
             }
         }
     }
@@ -156,5 +158,33 @@ class BTObject: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate {
         print("Sending: \(text)")
         let data = text.data(using: .utf8)!
         peripheral.writeValue(data, for: characteristic, type: .withResponse)
+    }
+    
+    // read value from given peripheral, service and characteristic
+    func readValue(_ peripheral: CBPeripheral,_ service_UUID: String, _ characteristic_UUID: String, _ updateListener: BTDataChangeListener) {
+        Globals.logToScreen("-rrr- reading value:service(" + service_UUID + ") / characteristic(" + characteristic_UUID + ")")
+        guard let peripheral = self.peripheral,
+              let service = peripheral.services?.first(where: { $0.uuid.uuidString == service_UUID }),
+              let characteristic = service.characteristics?.first(where: { $0.uuid.uuidString == characteristic_UUID })
+        else {
+            print("peripheral read value: service or characteristic not found!")
+            return
+        }
+        
+        //send read command, and wait for async response
+        self.dataUpdateListener = updateListener
+        peripheral.readValue(for: characteristic)
+    }
+    
+    
+    // MARK: - CBPeripheralDelegate
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        if let e = error {
+            print("ERROR didUpdateValue \(e)")
+            return
+        }
+        
+        guard let data = characteristic.value else { return }
+        self.dataUpdateListener?.onPeripheralDataChange(peripheral, characteristic, data)
     }
 }

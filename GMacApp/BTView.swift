@@ -19,6 +19,7 @@ struct BTView: View, BTChangeListener {
                 .imageScale(.large)
                 .foregroundStyle(.gray)
             //Text("BT State: \(viewModel.updateCounter)")
+            Button("Execute Command", action: executeCmd)
             Button("Press to Scan for Bluetooth Devices", action: startBTFn)
             var entries = viewModel.bto?.getPeripheralMap() ?? [:]
             if !entries.isEmpty {
@@ -42,6 +43,32 @@ struct BTView: View, BTChangeListener {
         }
     }
     
+    func executeCmd() {
+        Globals.logToScreen("executeCmd called..")
+        //CommandExecutor().shell("open \"https://www.google.com\"")
+        //let json = "{\"gestureKey\":\"A\", \"gestureCorrelationFactor\":\"0,41\"}"
+        //var data = convertJsonToDictionary(json) ?? [:]
+        
+        var xx = "{\"gestureKey\":\"KEY\",\"gestureCorrelationFactor\": 0.123}"
+        let gobj1: GestureJson? = decodeDataToObject(data: xx.data(using: .utf8)!)
+     
+        
+        //var xd:String = data["gestureCorrelationFactor"] as! String
+        Globals.logToScreen("executeCmd called.." + gobj1.debugDescription)
+    }
+    
+    //
+    func convertJsonToDictionary(_ text: String) -> [String: Any]? {
+        if let data = text.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
+    }
+       
     func startBTFn() {
         Globals.logToScreen("StartBTFn called..")
         viewModel.bto!.startScan()
@@ -50,7 +77,7 @@ struct BTView: View, BTChangeListener {
     func connectBT() {
         Globals.logToScreen("ConnectBT called.." + (selection ?? ""))
         if selection != nil {
-            var peripheral = viewModel.bto!.getPeripheralMap()[selection!]
+            let peripheral = viewModel.bto!.getPeripheralMap()[selection!]
             if peripheral != nil {
                 viewModel.bto!.connectToPeripheral(peripheral!)
             }
@@ -58,7 +85,7 @@ struct BTView: View, BTChangeListener {
     }
     
     init() {
-        viewModel.bto = BTObject()
+        viewModel.bto = BTCentralObj()
         viewModel.bto!.setChangeListener(self)
     }
     
@@ -83,11 +110,71 @@ struct BTView: View, BTChangeListener {
     
     /**
      * @param btMgr
+     * @param peripheral
+     * @param data
      */
-    func onPeripheralDataChange() {
+    func onPeripheralDataChange(_ central: CBCentralManager, _ peripheral: CBPeripheral, _ data: Data?){
         Globals.logToScreen("BTView onPeripheralDataChange called..")
+        
+        var xx = "{\"gestureKey\":\"KEY\",\"gestureCorrelationFactor\": -12.123}"
+        let gobj1: GestureJson? = decodeDataToObject(data: xx.data(using: .utf8)!)
+        Globals.logToScreen("BT JSON test data: \(gobj1!.gestureCorrelationFactor)")
+        
+        let gobj: GestureJson? = decodeDataToObject(data: data)
+        Globals.logToScreen("BT JSON Data: \(gobj?.gestureCorrelationFactor)")
+        
+        if(gobj?.gestureCorrelationFactor ?? 0.0 > 0.9){
+            Globals.logToScreen("BTView VALID gesture...")
+            executeCmd(gobj)
+        }
     }
     
+    /**
+     * @param gj
+     */
+    func executeCmd(_ gj:GestureJson?) {
+        Globals.logToScreen("BT executeCmd by gesture called..")
+        
+        if(gj?.gestureKey ?? "" == "A"){
+            Globals.logToScreen("BT executeCmd by gesture key >>>")
+            CommandExecutor().shell("open \"https://www.google.com\"")
+            
+        } else if(gj?.gestureKey ?? "" == "B"){
+            Globals.logToScreen("BT executeCmd by gesture key >>>")
+            CommandExecutor().shell("open \"https://www.yahoo.com\"")
+        }
+    }
+    
+    //decode data to json object
+    func decodeDataToObject<T: Codable>(data : Data?)->T?{
+        
+        if let dt = data{
+            do{
+                
+                return try JSONDecoder().decode(T.self, from: dt)
+                
+            }  catch let DecodingError.dataCorrupted(context) {
+                Globals.logToScreen("JSON " + context.debugDescription)
+                
+            } catch let DecodingError.keyNotFound(key, context) {
+                Globals.logToScreen("JSON - Key '\(key)' not found:" + context.debugDescription)
+                Globals.logToScreen("JSON - codingPath:" + context.codingPath.debugDescription)
+                
+            } catch let DecodingError.valueNotFound(value, context) {
+                Globals.logToScreen("JSON - Value '\(value)' not found:" + context.debugDescription)
+                Globals.logToScreen("JSON - codingPath:" + context.codingPath.debugDescription)
+                
+            } catch let DecodingError.typeMismatch(type, context)  {
+                Globals.logToScreen("JSON - Type '\(type)' mismatch:" + context.debugDescription)
+                Globals.logToScreen("JSON - codingPath:" + context.codingPath.debugDescription)
+                
+            } catch {
+                Globals.logToScreen("JSON - error: " + error.localizedDescription)
+            }
+        }
+        
+        return nil
+    }
 }
 
 //
@@ -97,7 +184,7 @@ struct BTView: View, BTChangeListener {
 //
 final class BTViewModel: ObservableObject {
     @Published var updateCounter: Int = 1
-    @Published var bto: BTObject?
+    @Published var bto: BTCentralObj?
     @Published var btMgr: CBCentralManager?
     @Published var selection: String?
     
