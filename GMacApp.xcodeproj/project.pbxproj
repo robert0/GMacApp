@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E877E8432D071EBC00498CBA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E877E8422D071EBC00498CBA /* StoreKit.framework */; };
 		E8C0D89F2CE81AA90098EE9D /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = E8C0D89E2CE81AA90098EE9D /* Collections */; };
 		E8C0D8A12CE81AA90098EE9D /* HashTreeCollections in Frameworks */ = {isa = PBXBuildFile; productRef = E8C0D8A02CE81AA90098EE9D /* HashTreeCollections */; };
 		E8C0D8A32CE81AA90098EE9D /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = E8C0D8A22CE81AA90098EE9D /* OrderedCollections */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E877E8422D071EBC00498CBA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		E8C0D63D2CE80D170098EE9D /* GMacApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GMacApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -45,6 +47,7 @@
 				E8C0D8A12CE81AA90098EE9D /* HashTreeCollections in Frameworks */,
 				E8C0D89F2CE81AA90098EE9D /* Collections in Frameworks */,
 				E8C0D8A32CE81AA90098EE9D /* OrderedCollections in Frameworks */,
+				E877E8432D071EBC00498CBA /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +74,7 @@
 		E8C0D8142CE819FC0098EE9D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E877E8422D071EBC00498CBA /* StoreKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -285,10 +289,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GMacApp/GMacApp.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GMacApp/Preview Content\"";
+				DEVELOPMENT_TEAM = ZRTZ6CPX7Q;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GMacApp/Info.plist;
@@ -299,7 +305,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rt.GMacApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -313,10 +319,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GMacApp/GMacApp.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GMacApp/Preview Content\"";
+				DEVELOPMENT_TEAM = ZRTZ6CPX7Q;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GMacApp/Info.plist;
@@ -327,7 +335,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rt.GMacApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

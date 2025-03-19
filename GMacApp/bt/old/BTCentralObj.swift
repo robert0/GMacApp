@@ -12,8 +12,8 @@ class BTCentralObj: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     let serviceUUID = CBUUID(string: "0000FFF0-0000-1000-2000-300040005000")
     let characteristicUUID = CBUUID(string: "0000FFF0-0000-1000-2000-300040005001")
-    var characteristic: CBMutableCharacteristic?
-    var discoveredPeripheral: CBPeripheral?
+    //var characteristic: CBMutableCharacteristic?
+    var remotePeripheral: CBPeripheral?
     
     private var peripheralsMap = OrderedDictionary<String, CBPeripheral>()
     
@@ -54,8 +54,8 @@ class BTCentralObj: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         //stop scanning first
         self.centralManager.stopScan()
 
-        discoveredPeripheral = peripheral
-        discoveredPeripheral!.delegate = self
+        remotePeripheral = peripheral
+        remotePeripheral!.delegate = self
         self.centralManager.connect(peripheral, options: nil)
     }
     
@@ -121,7 +121,7 @@ class BTCentralObj: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             Globals.logToScreen("BT Characteristic update, reading message...")
             if let value = characteristic.value, let message = String(data: value, encoding: .utf8) {
                 Globals.logToScreen("BT Received message: \(message)")
-                mDataChangeListener?.onPeripheralDataChange(centralManager, peripheral, characteristic.value)
+                mDataChangeListener?.onPeripheralDataChange(centralManager, peripheral, characteristic)
             }
         }
     }

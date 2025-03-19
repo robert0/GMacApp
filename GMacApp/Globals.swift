@@ -33,7 +33,11 @@ class Globals {
         logger.info("Application Started!...")
     }
 
-   
+    static func log(_ msg:String){
+        sharedInstance.logger.info("\(msg)")
+        Globals.logToScreen(msg)
+    }
+    
     /**
      *
      */
