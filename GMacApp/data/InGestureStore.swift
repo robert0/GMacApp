@@ -19,6 +19,15 @@ public class InGestureStore {
     }
     
     /**
+     * @param incommingGKey
+     * @return
+     */
+    public func getFirstGestureMappingByIncommingKey(_ incommingGKey:String) -> InGestureMapping? {
+        let entry =  dataMap.first(where: { $0.value.getIncommingGKey() == incommingGKey })
+        return entry?.value
+    }
+    
+    /**
      * @param key
      * @return
      */

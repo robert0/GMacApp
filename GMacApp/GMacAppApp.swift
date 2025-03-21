@@ -14,6 +14,11 @@ struct GMacAppApp: App {
     static var btInInstance:BTCentralObj_IN?
     static var btPeripheralDevice:CBPeripheral?
     
+    init(){
+        //initialize the InGestureStore
+        GMacAppApp.gestureDispatcher.setInGestureStore(InGestureStore())
+    }
+    
     var body: some Scene {
         WindowGroup {
             AppRootView()
@@ -42,6 +47,13 @@ struct GMacAppApp: App {
         } else {
             Globals.log("APP_Main:addBTChangeListener failed; No btInInstance")
         }
+    }
+    
+    /**
+     *
+     */
+    public static func getGestureDispatcher() -> GestureDispatcher {
+        return GMacAppApp.gestureDispatcher
     }
     
     

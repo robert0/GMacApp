@@ -7,8 +7,7 @@
 
 public enum GInActionType : String, CaseIterable, Identifiable {
     case ExecuteCommand = "Execute Command"
-    case ForwardToWatch = "Send to Watch"
-    case ExecuteCmdAndSendToWatch = "Execute Command and Send to Watch"
+    case DoStuff = "Do More"
     public var id: Self { self }
 }
 

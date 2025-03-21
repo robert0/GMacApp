@@ -1,4 +1,3 @@
-import CoreMotion
 //
 //  AppTabView.swift
 //  GApp
@@ -6,16 +5,19 @@ import CoreMotion
 //  Created by Robert Talianu
 //
 import SwiftUI
+import CoreMotion
+import CoreBluetooth
 
 struct AppTabView: View {
     var inGesturesStore:InGestureStore
     @State var inGCount:Int = 0
     @State var selection: Int? = 1
+    @State var btDevice:CBPeripheral?
     
     // constructor
     init() {
         //initilize app vars
-        self.inGesturesStore = InGestureStore()
+        self.inGesturesStore = GMacAppApp.getGestureDispatcher().getInGestureStore()!//expecting by this time to be already created
     }
     
     // The app panel
@@ -28,7 +30,7 @@ struct AppTabView: View {
                 //
                 // Incomming Gestures View
                 //
-                NavigationLink(destination: IncommingGesturesView(inGesturesStore)) {
+                NavigationLink(destination: IncommingGesturesView(self.inGesturesStore)) {
                     Image(systemName: "iphone.and.arrow.right.inward")
                         .imageScale(.large)
                     Text("Gestures Mapping( \(inGCount) )")
@@ -38,7 +40,7 @@ struct AppTabView: View {
                 //
                 // Bluetooth View
                 //
-                if(GMacAppApp.btPeripheralDevice == nil){
+                if(btDevice == nil){
                     NavigationLink(destination:  BTView()) {
                         Image(systemName: "iphone.gen1.and.arrow.left")
                             .imageScale(.large)
@@ -49,7 +51,7 @@ struct AppTabView: View {
                     NavigationLink(destination:  BTView()) {
                         Image(systemName: "link")
                             .imageScale(.large)
-                        Text("Paired to \(GMacAppApp.btPeripheralDevice?.name ?? "Unknown")")
+                        Text("Paired to \(btDevice?.name ?? "Unknown")")
                     }
                }
                 Spacer().frame(height:30)
@@ -63,8 +65,22 @@ struct AppTabView: View {
                     Text("About")
                 }
                 Spacer().frame(height:30)
+                
+                Button("Execute Cmd") {
+                    Globals.log("Execute Cmd clicked...")
+                    CommandExecutor.executeCommand("ls")
+                    CommandExecutor.shell("open https://www.google.com")
+
+                }.buttonStyle(.borderedProminent)
+                Spacer().frame(width: 10)
+                
                 Spacer()
+                
             }
+        }.onAppear(){
+            Globals.log("AppTabView onAppear...")
+            inGCount = self.inGesturesStore.getAllGestures().count
+            btDevice = GMacAppApp.btPeripheralDevice
         }
     }
 

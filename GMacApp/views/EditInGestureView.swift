@@ -21,9 +21,9 @@ struct EditInGestureView: View {
     @State private var selectedActionType: GInActionType = GInActionType.ExecuteCommand
     
     enum InCommand: String, CaseIterable, Identifiable {
-        case openWebPage = "open www.google.com"
-        case executeApp = "execute swiftUI"
-        case runScript = "run cmd"
+        case openWebPage = "open https://www.google.com"
+        case launchKeynoteApp = "cd /; cd Applications; open Keynote.app/"
+        case runLsScript = "ls"
         var id: Self { self }
     }
     
@@ -44,7 +44,7 @@ struct EditInGestureView: View {
         self.initialKey = igName
         let igmObj = gesturesStore.getGestureMapping(igName)
         if(igmObj != nil){ // edit page
-            Globals.log("init initial cmd:\(igmObj!.getCommand())")
+            //Globals.log("init initial cmd:\(igmObj!.getCommand())")
             self.igmName = igmObj!.getName()
             self.igkey = igmObj!.getIncommingGKey()
             self.selectedCmd = InCommand.allCases.filter{$0.rawValue == igmObj!.getCommand()}.first ?? InCommand.openWebPage
@@ -97,8 +97,7 @@ struct EditInGestureView: View {
                     .font(.title3)
                 Picker("", selection: $selectedActionType) {
                     Text("Execute Command").tag(GInActionType.ExecuteCommand)
-                    Text("Forward to Watch").tag(GInActionType.ForwardToWatch)
-                    Text("Execute Command and Send to Watch").tag(GInActionType.ExecuteCmdAndSendToWatch)
+                    Text("Do More Stuff").tag(GInActionType.DoStuff)
                 }
                 .padding(5)
                 .overlay(
@@ -107,13 +106,13 @@ struct EditInGestureView: View {
                 )
                 Spacer().frame(height: 20)
                 
-                if(selectedActionType == GInActionType.ExecuteCommand || selectedActionType == GInActionType.ExecuteCmdAndSendToWatch){
+                if(selectedActionType == GInActionType.ExecuteCommand ){
                     Text("Choose Command to execute:")
                         .font(.title3)
                     Picker("Execute Command:", selection: $selectedCmd) {
                         Text("Open Web Page").tag(InCommand.openWebPage)
-                        Text("Execute App").tag(InCommand.executeApp)
-                        Text("Run Script").tag(InCommand.runScript)
+                        Text("Launch Keynote App").tag(InCommand.launchKeynoteApp)
+                        Text("Execute LS command").tag(InCommand.runLsScript)
                     }
                     .padding(5)
                     .overlay(
