@@ -8,21 +8,51 @@ import SwiftUI
 		
 struct LogView: View {
     @ObservedObject var viewModel = LogViewModel()
-    // @State private var position = ScrollPosition(edge: .top)
-    
+    @Namespace var bottomID
+
     // The logs panel
     var body: some View {
         
-        ScrollView() {
-            VStack(alignment: HorizontalAlignment.leading) {
-                Text("--- Logging (Trimmed) ---")
-                Spacer()
-                Text(viewModel.text)
-                    .lineLimit(nil)
-                    .textSelection(.enabled)
+        ScrollView {
+            ScrollViewReader { value in
+                     
+                VStack(alignment: HorizontalAlignment.leading) {
+                    Text("--- Logging (Trimmed) ---")
+                    Spacer()
+                    
+                    Text(viewModel.text)
+                        .lineLimit(nil)
+                        .textSelection(.enabled)
+                    
+                    Text("").id(bottomID)
+                    
+                }.onChange(of: viewModel.text.count) { _ in
+                    value.scrollTo(bottomID)
+                }
+                
+//                ForEach(0..<entries.count) { i in
+//                    Text(self.entries[i].getName())
+//                        .frame(width: 300, height: 200)
+//                        .background(colors[i % colors.count])
+//                        .padding(.all, 20)
+//                }
+//                .onChange(of: entries.count) { _ in
+//                    value.scrollTo(entries.count - 1)
+//                }
             }
         }.frame(maxWidth: 600)
             .border(Color.red)
+        
+//        ScrollView() {
+//            VStack(alignment: HorizontalAlignment.leading) {
+//                Text("--- Logging (Trimmed) ---")
+//                Spacer()
+//                Text(viewModel.text)
+//                    .lineLimit(nil)
+//                    .textSelection(.enabled)
+//            }
+//        }.frame(maxWidth: 600)
+//            .border(Color.red)
         
     }
     

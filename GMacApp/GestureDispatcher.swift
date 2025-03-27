@@ -46,35 +46,70 @@ public class GestureDispatcher : BTChangeListener {
         let gobj: GestureJson? = decodeDataToObject(data: value)
         
         let message = String(data: value, encoding: .utf8)
-        Globals.log("GestureDispatcher: received gesture: \(gobj?.gestureKey ?? "no valid gs") - \(gobj?.gestureCorrelationFactor)")
+        Globals.log("GestureDispatcher: ====== > received gesture: \(gobj?.gestureKey ?? "no valid gs") - \(gobj?.gestureCorrelationFactor)")
         
         if(gobj == nil ){
             Globals.log("GestureDispatcher: Error. Could not decode incomming gesture")
             return
         }
-          
+        
+        let cmd = gobj!.gestureCommand
+        var mpcmd = getMappedCommand(gobj!)
+        if (mpcmd.isEmpty) {
+            if(GMacAppApp.isCommandForwarding){
+                Globals.log("GestureDispatcher: CommandForwarding is set, executing the default gesture command")
+                callCommand(cmd)
+            }
+        } else {
+            callCommand(mpcmd)
+        }
+    }
+    
+    /**
+     *
+     * Find mapping for incomming gesture and call the command associated with it
+     *
+     * @param gobj
+     */
+    private func getMappedCommand(_ gobj:GestureJson) -> String{
+        Globals.log("GestureDispatcher: Info -> Trying to find mapped command for incomming gesture...")
         if(inGesturesStore == nil || inGesturesStore!.getKeys().count == 0){
             Globals.log("GestureDispatcher: Warning. No InGestureStore set or there is no entry in the InGestureStore")
-            return
+            return ""
         }
             
-        let gsm = inGesturesStore!.getFirstGestureMappingByIncommingKey(gobj!.gestureKey)
+        let gsm = inGesturesStore!.getFirstGestureMappingByIncommingKey(gobj.gestureKey)
         if(gsm == nil){
             Globals.log("GestureDispatcher: Warning. Could not find any gesture mapping for the received gesture")
-            return
+            return ""
         }
         
         Globals.log("GestureDispatcher: Found mapping for incomming gesture \(gsm!.getName())")
         let cmd = gsm!.getCommand()
         if(cmd.isEmpty){
             Globals.log("GestureDispatcher: Warning. There is no command defined for the incomming gesture")
+            return ""
+        }
+        
+        return cmd
+    }
+    
+    /**
+     *
+     * Do direct call of command that comes with the incomming gesture
+     *
+     * @param gobj
+     */
+    private func callCommand(_ cmd:String){
+        if(cmd.isEmpty){
+            Globals.log("GestureDispatcher: Warning. The command to be executed is empty, ignoring it...")
             return
         }
         
-        Globals.log("GestureDispatcher: Executing command <\(cmd)> for mapping: \(gsm!.getName())")
+        Globals.log("GestureDispatcher: Executing command <\(cmd)>")
         CommandExecutor.shell(cmd)
-
     }
+    
     
     /**
      *

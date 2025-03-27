@@ -46,8 +46,8 @@ struct IncommingGesturesView: View {
                         
                         Button {
                             Globals.log("Delete button was tapped")
-                            showConfirmation = true
                             deletingKey = widget.key
+                            showConfirmation = true
                             
                         } label: {
                             Image(systemName: "trash")
@@ -62,10 +62,6 @@ struct IncommingGesturesView: View {
                                 .imageScale(.large)
                         }.frame(width:50)
                         
-                    }.confirmationDialog("Delete item \(deletingKey)?", isPresented: $showConfirmation) {
-                        Button("Yes, delete", action: {
-                            deleteGesture(deletingKey)
-                        })
                     }
                 }
                 Spacer()
@@ -85,6 +81,11 @@ struct IncommingGesturesView: View {
             print("IncommingGesturesView: onAppear...")
             //used for UI forced updates
             counter = counter + 1
+            
+        }.confirmationDialog("Delete item \(deletingKey)?", isPresented: $showConfirmation) {
+            Button("Yes, delete", role: .destructive, action: {
+                deleteGesture(deletingKey)
+            })
         }
     }
     

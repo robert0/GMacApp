@@ -17,7 +17,7 @@ public class FileSystem {
     public static func writeIncommingGesturesMappingsDataFile(_ gestures: [InGestureMapping]) -> Void {
         do {
             let fileURL = try FileManager.default
-                .url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+                .url(for: .applicationDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
                 .appendingPathComponent(Device.IncommingGesturesDataFileName)
             
             let encoder = JSONEncoder()
@@ -25,6 +25,7 @@ public class FileSystem {
             //encoder.keyEncodingStrategy = .convertToSnakeCase
             //encoder.dateEncodingStrategy = .iso8601
             //encoder.dataEncodingStrategy = .base64
+            
             try encoder
                 .encode(gestures)
                 .write(to: fileURL)

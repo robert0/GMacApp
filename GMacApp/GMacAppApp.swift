@@ -10,26 +10,55 @@ import CoreBluetooth
 
 @main
 struct GMacAppApp: App {
+    static var isCommandForwarding:Bool = true
     static var gestureDispatcher:GestureDispatcher = GestureDispatcher()
     static var btInInstance:BTCentralObj_IN?
     static var btPeripheralDevice:CBPeripheral?
     
+    static var rootView:AppRootView?
+    
     init(){
+        Globals.log("App: Initializing main class")
         //initialize the InGestureStore
         GMacAppApp.gestureDispatcher.setInGestureStore(InGestureStore())
+        
+        //load saved gestures mappings from filesystem
+        let igestures = FileSystem.readIncommingGesturesMappingDataFile()
+        Globals.log("App: Loaded incomming gestures mapping count: \(igestures.count)")
+        if igestures.count > 0 {
+            igestures.forEach({
+                GMacAppApp.gestureDispatcher.getInGestureStore()!.setGestureMapping($0.getName(), $0)
+            })
+        }
+        
+        GMacAppApp.rootView = AppRootView()
     }
     
     var body: some Scene {
         WindowGroup {
-            AppRootView()
+            GMacAppApp.rootView
         }
+    }
+    
+    ///
+    ///
+    ///
+    public static func enableCommandForwarding(){
+        isCommandForwarding = true
+    }
+    
+    ///
+    ///
+    ///
+    public static func disableCommandForwarding(){
+        isCommandForwarding = false
     }
     
     /*
      *
      */
     public static func startBTInbound() -> BTCentralObj_IN? {
-        Globals.log("APP_Main:startBT() called..")
+        Globals.log("App: startBTInbound() called..")
         if(GMacAppApp.btInInstance == nil){
             GMacAppApp.btInInstance = BTCentralObj_IN()//self start scanning
             GMacAppApp.btInInstance?.addBTChangeListener(gestureDispatcher)
@@ -45,7 +74,7 @@ struct GMacAppApp: App {
             GMacAppApp.btInInstance!.addBTChangeListener(btl)
             
         } else {
-            Globals.log("APP_Main:addBTChangeListener failed; No btInInstance")
+            Globals.log("App: addBTChangeListener failed; No btInInstance")
         }
     }
     
@@ -66,7 +95,7 @@ struct GMacAppApp: App {
             GMacAppApp.btInInstance!.startScan()
             
         } else {
-            Globals.log("APP_Main:startBTScanning failed; No btInInstance")
+            Globals.log("App: startBTScanning failed; No btInInstance")
         }
     }
     
@@ -79,7 +108,7 @@ struct GMacAppApp: App {
             GMacAppApp.btInInstance!.stopScanning()
             
         } else {
-            Globals.log("APP_Main:stopBTScanning failed; No btInInstance")
+            Globals.log("App: stopBTScanning failed; No btInInstance")
         }
     }
     
@@ -87,7 +116,7 @@ struct GMacAppApp: App {
      *
      */
     public static func connectToBTDevice(_ cbp:CBPeripheral) {
-        Globals.log("APP_Main:connectToBTDevice() called..")
+        Globals.log("App: connectToBTDevice() called..")
         
         //store locally
         GMacAppApp.btPeripheralDevice = cbp
