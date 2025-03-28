@@ -298,6 +298,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GMacApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "App uses Bluetooth to connect to the other devices";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "App uses Bluetooth to connect to the other devices";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -328,6 +330,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GMacApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "App uses Bluetooth to connect to the other devices";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "App uses Bluetooth to connect to the other devices";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
