@@ -292,7 +292,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"GMacApp/Preview Content\"";
 				DEVELOPMENT_TEAM = ZRTZ6CPX7Q;
 				ENABLE_PREVIEWS = YES;
@@ -300,6 +300,7 @@
 				INFOPLIST_FILE = GMacApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
+				INFOPLIST_KEY_NSAppleEventsUsageDescription = "Do you allow automation for this app?";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "App uses Bluetooth to connect to the other devices";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "App uses Bluetooth to connect to the other devices";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -324,7 +325,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"GMacApp/Preview Content\"";
 				DEVELOPMENT_TEAM = ZRTZ6CPX7Q;
 				ENABLE_PREVIEWS = YES;
@@ -332,6 +333,7 @@
 				INFOPLIST_FILE = GMacApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
+				INFOPLIST_KEY_NSAppleEventsUsageDescription = "Do you allow automation for this app?";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "App uses Bluetooth to connect to the other devices";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "App uses Bluetooth to connect to the other devices";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";

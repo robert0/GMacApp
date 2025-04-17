@@ -88,8 +88,33 @@ struct AppTabView: View {
                     
                     Button("Execute Cmd") {
                         Globals.log("Execute Cmd clicked...")
-                        CommandExecutor.executeCommand("ls")
-                        CommandExecutor.shell("open https://www.google.com")
+                        //CommandExecutor.shell("ls")
+                        //CommandExecutor.shell("cd /Users/roberttalianu/Desktop; pwd; osascript Keynote_start_presentation.scpt")
+                        
+                        //CommandExecutor.shell("open https://www.google.com")
+                        //CommandExecutor.executeCommand("cd /Users/roberttalianu/Desktop; ls")
+                        
+                        
+                        //var script = AppleScriptRunner("display dialog \"Hello World\"")
+                        //var script = AppleScriptRunner("tell application \"Safari\" to activate")
+                        var script = AppleScriptRunner("""
+                            if running of application \"Keynote\" is true then
+                                    tell application \"Keynote\"
+                                    activate
+                                    try
+                                        if playing is false then start the front document
+                                    end try
+                                end tell
+                            end if
+                            """)
+                            
+                        script.executeAsync()
+                        
+//                        """
+//                        tell application "Safari"
+//                            get url of tabs of windows
+//                        end
+//                        """
                         
                     }.buttonStyle(.borderedProminent)
                     Spacer().frame(width: 10)
