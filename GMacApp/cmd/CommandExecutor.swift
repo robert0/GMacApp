@@ -29,9 +29,9 @@ class CommandExecutor {
         }
     }
     
-    //
-    // Tested & working
-    //
+    ///
+    /// Tested & working
+    ///
     public static func shell(_ command: String) -> Int32 {
         let task = Process()
         task.launchPath = "/usr/bin/env"
@@ -41,8 +41,9 @@ class CommandExecutor {
         return task.terminationStatus
     }
     
-    //
-    //
+    ///
+    ///
+    ///
     public static func shell2(_ command: String) -> (String?) {
         let task = Process()
 
@@ -58,5 +59,29 @@ class CommandExecutor {
         let output = String(data: data, encoding: .utf8)
         task.waitUntilExit()
         return (output)
+    }
+    
+    
+    ///
+    ///
+    ///
+    public static func appleScript(_ script: String) -> String? {
+        let script = AppleScriptRunner(script)
+        
+        // example:
+        //        let script = AppleScriptRunner("""
+        //            if running of application \"Keynote\" is true then
+        //                    tell application \"Keynote\"
+        //                    activate
+        //                    try
+        //                        if playing is false then start the front document
+        //                    end try
+        //                end tell
+        //            end if
+        //            """)
+        
+        script.executeAsync()
+        
+        return ""//TODO... return command output
     }
 }

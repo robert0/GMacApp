@@ -107,7 +107,7 @@ public class GestureDispatcher : BTChangeListener {
         }
         
         Globals.log("GestureDispatcher: Executing command <\(cmd)>")
-        CommandExecutor.shell(cmd)
+        CommandExecutor.appleScript(cmd)
     }
     
     
